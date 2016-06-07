@@ -20,9 +20,36 @@ choice = input('Select Menu : ')
 # Convert string to int type #
 choice = int(choice)
 
+
+def read_file():
+    ucount = 0
+    u = open('user.txt')
+    for line in u:
+        line = line[0:-1]
+        ucount += 1
+       #print(line)
+    print('Total User: ', ucount/4)
+
+    fcount = 0
+    f = open('friend.txt')
+    for line in f:
+        line = line[0:-1]
+        fcount += 1
+       #print(line)
+    print('Total Friendship Records: ', fcount/3*2)
+
+    wcount = 0
+    w = open('word.txt')
+    for line in w:
+        line = line[0:-1]
+        wcount += 1
+       #print(line)
+    print('Total Tweets: ', wcount/4)
+
 # Take action as per selected menu-option
 if choice == 0:
     print("Reading Data Files...")
+    read_file()
 elif choice == 1:
     print("Displaying Statistics...")
 elif choice == 2:
@@ -43,5 +70,5 @@ elif choice == 9:
     print("Finding Shortest Path...")
 elif choice == 99:
     print("Good Bye")
-else:  ## default ##
+else:  # default
     print("Invalid number. Try again...")
