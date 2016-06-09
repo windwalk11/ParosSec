@@ -27,7 +27,7 @@ def read_file():
     for line in u:
         line = line[0:-1]
         ucount += 1
-       #print(line)
+        #print(line)
     print('Total User: ', ucount/4)
 
     fcount = 0
@@ -46,12 +46,31 @@ def read_file():
        #print(line)
     print('Total Tweets: ', wcount/4)
 
+m = dict()
+
+def count(word):
+    if m.get(word):
+        m[word] += 1
+    else: m[word] = 1
+
+
 # Take action as per selected menu-option
 if choice == 0:
     print("Reading Data Files...")
     read_file()
+
 elif choice == 1:
     print("Displaying Statistics...")
+'''   Top 5 friends
+    f = open('friend.txt')
+    for line in f:
+        line = line[0:-1]
+        count(line)
+    del m['']
+    top = sorted(m, key=m.get, reverse=True)[:5]
+    for i in range(5):
+        print(top[i],m[top[i]])
+'''
 elif choice == 2:
     print("Showing Top 5 Most Word...")
 elif choice == 3:
