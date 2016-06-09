@@ -55,12 +55,6 @@ def count(word):
 
 
 # Take action as per selected menu-option
-if choice == 0:
-    print("Reading Data Files...")
-    read_file()
-
-elif choice == 1:
-    print("Displaying Statistics...")
 '''   Top 5 friends
     f = open('friend.txt')
     for line in f:
@@ -71,6 +65,26 @@ elif choice == 1:
     for i in range(5):
         print(top[i],m[top[i]])
 '''
+if choice == 0:
+    print("Reading Data Files...")
+    read_file()
+elif choice == 1:
+    print("Displaying Statistics...")
+    f = open('friend.txt')
+    for line in f:
+        line = line[0:-1]
+        count(line)
+    del m['']
+    def sum():
+        res = 0
+        for i in m:
+            res += m[i]
+        return res
+    maximum = max(m, key = m.get)
+    minimum = min(m, key = m.get)
+    print("Average Number of Friends:", sum()/len(m))
+    print("Maximum Number of Friends:", m[maximum])
+    print("Minimum Number of Friends:", m[minimum])
 elif choice == 2:
     print("Showing Top 5 Most Word...")
 elif choice == 3:
