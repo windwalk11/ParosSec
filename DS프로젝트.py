@@ -1,3 +1,5 @@
+import re
+
 print(55 * '-')
 print("                      M E N U                      ")
 print(55 * '-')
@@ -53,6 +55,11 @@ def count(word):
         m[word] += 1
     else: m[word] = 1
 
+def is_num(x):
+        if int(x) == x:
+            return x
+        else:
+            return False
 
 # Take action as per selected menu-option
 '''   Top 5 friends
@@ -75,16 +82,28 @@ elif choice == 1:
         line = line[0:-1]
         count(line)
     del m['']
+
     def sum():
         res = 0
         for i in m:
             res += m[i]
         return res
-    maximum = max(m, key = m.get)
-    minimum = min(m, key = m.get)
+    maximumf = max(m, key = m.get)
+    minimumf = min(m, key = m.get)
     print("Average Number of Friends:", sum()/len(m))
-    print("Maximum Number of Friends:", m[maximum])
-    print("Minimum Number of Friends:", m[minimum])
+    print("Maximum Number of Friends:", maximumf, "=>", m[maximumf])
+    print("Minimum Number of Friends:", minimumf, "=>", m[minimumf])
+    m.clear()
+
+    for i,l in enumerate(open('word.txt')):
+        if i%4 == 0:
+            count(l)
+    maximumt = max(m, key = m.get)
+    minimumt = min(m, key = m.get)
+    print("Average Tweet per User:", sum()/len(m))
+    print("Maximum Tweet per User:", maximumt.rstrip(), "=>", m[maximumt])
+    print("Minimum Tweet per User:", minimumt.rstrip(), "=>", m[minimumt])
+    m.clear()
 elif choice == 2:
     print("Showing Top 5 Most Word...")
 elif choice == 3:
