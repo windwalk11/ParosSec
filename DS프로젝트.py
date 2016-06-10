@@ -55,12 +55,6 @@ def count(word):
         m[word] += 1
     else: m[word] = 1
 
-def is_num(x):
-        if int(x) == x:
-            return x
-        else:
-            return False
-
 # Take action as per selected menu-option
 '''   Top 5 friends
     f = open('friend.txt')
@@ -105,9 +99,15 @@ elif choice == 1:
     print("Minimum Tweet per User:", minimumt.rstrip(), "=>", m[minimumt])
     m.clear()
 elif choice == 2:
-    print("Showing Top 5 Most Word...")
+    print("Showing Top 5 Most Tweeted Words...")
+    for i, l in enumerate(open('word.txt')):
+        if i % 4 == 2:
+            count(l)
+    top = sorted(m, key=m.get, reverse=True)[:5]
+    for i in range(5):
+        print(top[i].rstrip(), ":", m[top[i]])
 elif choice == 3:
-    print("Showing Top 5 Most User...")
+    print("Showing Top 5 Most Tweeted Users...")
 elif choice == 4:
     print("Finding User...")
 elif choice == 5:
