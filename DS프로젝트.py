@@ -108,6 +108,12 @@ elif choice == 2:
         print(top[i].rstrip(), ":", m[top[i]])
 elif choice == 3:
     print("Showing Top 5 Most Tweeted Users...")
+    for i, l in enumerate(open('word.txt')):
+        if i % 4 == 2 and '@' in l:
+            count(l)
+    top = sorted(m, key=m.get, reverse=True)[:5]
+    for i in range(5):
+        print(top[i].rstrip(), ":", m[top[i]])
 elif choice == 4:
     print("Finding User...")
 elif choice == 5:
