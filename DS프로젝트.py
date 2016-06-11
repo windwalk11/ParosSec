@@ -22,7 +22,6 @@ choice = input('Select Menu : ')
 # Convert string to int type #
 choice = int(choice)
 
-
 def read_file():
     ucount = 0
     u = open('user.txt')
@@ -50,6 +49,12 @@ def read_file():
 
 m = dict()
 
+def sum():
+    res = 0
+    for i in m:
+        res += m[i]
+    return res
+
 def count(word):
     if m.get(word):
         m[word] += 1
@@ -76,12 +81,6 @@ elif choice == 1:
         line = line[0:-1]
         count(line)
     del m['']
-
-    def sum():
-        res = 0
-        for i in m:
-            res += m[i]
-        return res
     maximumf = max(m, key = m.get)
     minimumf = min(m, key = m.get)
     print("Average Number of Friends:", sum()/len(m))
@@ -115,7 +114,13 @@ elif choice == 3:
     for i in range(5):
         print(top[i].rstrip(), ":", m[top[i]])
 elif choice == 4:
-    print("Finding User...")
+    print("Finding Users who tweeted a word...")
+    text = str(input("Word: "))
+    for i, l in enumerate(open('word.txt')):
+        if text == l[:-1]:
+            print(i, text)
+        #if i % 4 == 2 and text in l:
+            #print(i, text)
 elif choice == 5:
     print("Finding All People...")
 elif choice == 6:
