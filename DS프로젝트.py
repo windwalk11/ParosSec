@@ -116,11 +116,13 @@ elif choice == 3:
 elif choice == 4:
     print("Finding Users who tweeted a word...")
     text = str(input("Word: "))
-    for i, l in enumerate(open('word.txt')):
+    total = 0
+    lst = []
+    for l in open('word.txt'):
+        lst.append(l)
+        total += 1
         if text == l[:-1]:
-            print(i, text)
-        #if i % 4 == 2 and text in l:
-            #print(i, text)
+            print(lst[total-3].rstrip(), "=>", l)
 elif choice == 5:
     print("Finding All People...")
 elif choice == 6:
