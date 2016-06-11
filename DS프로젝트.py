@@ -30,7 +30,6 @@ def read_file():
         ucount += 1
         #print(line)
     print('Total User: ', ucount/4)
-
     fcount = 0
     f = open('friend.txt')
     for line in f:
@@ -38,7 +37,6 @@ def read_file():
         fcount += 1
        #print(line)
     print('Total Friendship Records: ', fcount/3*2)
-
     wcount = 0
     w = open('word.txt')
     for line in w:
@@ -124,7 +122,24 @@ elif choice == 4:
         if text == l[:-1]:
             print(lst[total-3].rstrip(), "=>", l)
 elif choice == 5:
-    print("Finding All People...")
+    print("Find All People who are friends of the above users...")
+    text = str(input("Word: "))
+    totalw = 0
+    totalf = 0
+    lstw = []
+    lstf = []
+    for l in open('word.txt'):
+        lstw.append(l)
+        totalw += 1
+        if text == l[:-1]:
+            print("User who tweet a word: ", lstw[totalw - 3].rstrip())
+            break
+    for ll in open('friend.txt').read().split():
+        lstf.append(ll)
+        totalf += 1
+    print(lstf)
+        #if lstw[totalw - 3].rstrip() == ll[:-1]:
+            #print("All Users who are Friend: ", lstf[totalf])
 elif choice == 6:
     print("Deleting Users...")
 elif choice == 7:
