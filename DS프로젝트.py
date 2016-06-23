@@ -11,7 +11,8 @@ def sum():
 def count(word):
     if m.get(word):
         m[word] += 1
-    else: m[word] = 1
+    else:
+        m[word] = 1
 
 def read_file():
     print("Reading Data Files...")
@@ -20,28 +21,28 @@ def read_file():
     for line in u:
         line = line[0:-1]
         ucount += 1
-        #print(line)
-    print('Total User: ', ucount/4)
+        # print(line)
+    print('Total User: ', ucount / 4)
     fcount = 0
     f = open('friend.txt')
     for line in f:
         line = line[0:-1]
         fcount += 1
-       #print(line)
-    print('Total Friendship Records: ', fcount/3*2)
+        # print(line)
+    print('Total Friendship Records: ', fcount / 3 * 2)
     wcount = 0
     w = open('word.txt')
     for line in w:
         line = line[0:-1]
         wcount += 1
-       #print(line)
-    print('Total Tweets: ', wcount/4)
+        # print(line)
+    print('Total Tweets: ', wcount / 4)
 
 def statistic():
     print("Displaying Statistics...")
     f = open('friend.txt')
     for line in f:
-        line = line[0:-1]
+        line = line[:-1]
         count(line)
     del m['']
     maximumf = max(m, key=m.get)
@@ -69,47 +70,64 @@ def mostword():
     top = sorted(m, key=m.get, reverse=True)[:5]
     for i in range(5):
         print(top[i].rstrip(), ":", m[top[i]])
+    m.clear()
 
 def mostuser():
-    print("Showing Top 5 Most Tweeted Users...")  #Tweet 많이 한 사람
+    print("Showing Top 5 Most Tweeted Users...")  # Tweet 많이 한 사람
     for i, l in enumerate(open('word.txt')):
         if i % 4 == 0:
             count(l)
     top = sorted(m, key=m.get, reverse=True)[:5]
     for i in range(5):
         print(top[i].rstrip(), ":", m[top[i]])
+    m.clear()
 
 def userfind():
     print("Finding Users who tweeted a word...")
     text = str(input("Word: "))
-    total = 0
     lst = []
-    for l in open('word.txt'):
-        lst.append(l)
-        total += 1
-        if text == l[:-1]:
-            print(lst[total - 3].rstrip(), "=>", l)
+    buffer = 0
+    for i, l in enumerate(open('word.txt')):
+        l = l[:-1]
+        if i % 4 == 0:
+            buffer = l
+        if i % 4 == 2 and text == l:
+            if buffer not in lst:
+                lst.append(buffer)
     return lst
-# Take action as per selected menu-option
 
 def userfriend():
+    print("Finding All People who are friends of the above users...")
     users = userfind()
-    f = open('friend.txt')
-    for line in f:
-        line = line[0:-1]
-        count(line)
-    del m['']
-    top = sorted(m, key=m.get, reverse=True)[:5]
-    for i in range(5):
-        print(top[i],m[top[i]])
-'''
+    d = {}
+    buffer = 0
+    for i, l in enumerate(open('friend.txt')):
+        l = l[:-1]
+        if i % 3 == 0:
+            if l in users:
+                if d.get(l) is None:
+                    d[l] = []
+                buffer = l
+        if i % 3 == 1 and buffer in d:
+            d[buffer].append(l)
+            buffer = 0
+    return d
+
+
 if __name__ == '__main__':
     class Choice():
         def __init__(self, desc, fn):
-            self.desc , self.fn =  desc, fn
+            self.desc, self.fn = desc, fn
 
-    choices = list(map(Choice,('Read Data Files', 'Display Statistics', 'Top 5 Most Tweeted Words', 'Top 5 Most Tweeted Users','Find Users who tweeted a word', 'Find All People who are friends of the above users','Delete Users who mentioned a word','Delete All Users who mentioned a word','Find Strongly Connected Components','Find Shortest Path from a given user'),
-                       (read_file, statistic, mostword, mostuser, userfind, None, None, None, None)))
+
+    choices = list(map(Choice, ('Read Data Files', 'Display Statistics', 'Top 5 Most Tweeted Words',
+                                'Top 5 Most Tweeted Users', 'Find Users who tweeted a word',
+                                'Find All People who are friends of the above users',
+                                'Delete Users who mentioned a word',
+                                'Delete All Users who mentioned a word', 'Find Strongly Connected Components',
+                                'Find Shortest Path from a given user'),
+                       (read_file, statistic, mostword, mostuser, userfind, userfriend, None, None, None, None)))
+
     while True:
         print(55 * '-')
         print("                      M E N U                      ")
@@ -130,27 +148,4 @@ if __name__ == '__main__':
             print("Invalid input. Try again...")
         else:
             choice = int(choice)
-            choices[choice].fn()
-'''
-    elif choice == 5:
-        print("Find All People who are friends of the above users...")
-        userfind()
-
-        text = str(input("Word: "))
-        totalw = 0
-        totalf = 0
-        lstw = []
-        lstf = []
-        for l in open('word.txt'):
-            lstw.append(l)
-            totalw += 1
-            if text == l[:-1]:
-                print("User who tweet a word: ", lstw[totalw - 3].rstrip())
-                break
-        for ll in open('friend.txt').read().split():
-            lstf.append(ll)
-            totalf += 1
-        print(lstf)
-            #if lstw[totalw - 3].rstrip() == ll[:-1]:
-                #print("All Users who are Friend: ", lstf[totalf])
-'''
+            print(choices[choice].fn())
