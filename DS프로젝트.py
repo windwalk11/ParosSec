@@ -113,6 +113,39 @@ def userfriend():
             buffer = 0
     return d
 
+def delword():
+    print("Deleting Words which is mentioned")
+    text = str(input("Word: "))
+    lst = []
+    for i, l in enumerate(open('word.txt')):
+        l = l[:-1]
+        if i % 4 == 2 and text != l:
+            if l not in lst:
+                lst.append(l)
+    return lst
+
+def deluser():
+    print("Deleting Users who mentioned a word")
+    text = str(input("Word: "))
+    people = []
+    for i, l in enumerate(open('word.txt')):
+        l = l[:-1]
+        if i % 4 == 0:
+            if l not in people:
+                people.append(l)
+    lst = []
+    buffer = 0
+    for ii, ll in enumerate(open('word.txt')):
+        ll = ll[:-1]
+        if ii % 4 == 0:
+            buffer = ll
+        if ii % 4 == 2 and text == ll:
+            if buffer not in lst:
+                lst.append(buffer)
+    for k in lst:
+        if k in people:
+            people.remove(k)
+    return people
 
 if __name__ == '__main__':
     class Choice():
@@ -123,10 +156,10 @@ if __name__ == '__main__':
     choices = list(map(Choice, ('Read Data Files', 'Display Statistics', 'Top 5 Most Tweeted Words',
                                 'Top 5 Most Tweeted Users', 'Find Users who tweeted a word',
                                 'Find All People who are friends of the above users',
-                                'Delete Users who mentioned a word',
-                                'Delete All Users who mentioned a word', 'Find Strongly Connected Components',
+                                'Delete Words which is mentioned',
+                                'Delete Users who mentioned a word', 'Find Strongly Connected Components',
                                 'Find Shortest Path from a given user'),
-                       (read_file, statistic, mostword, mostuser, userfind, userfriend, None, None, None, None)))
+                       (read_file, statistic, mostword, mostuser, userfind, userfriend, delword, deluser, None, None)))
 
     while True:
         print(55 * '-')
