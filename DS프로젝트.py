@@ -147,6 +147,13 @@ def deluser():
             people.remove(k)
     return people
 
+def sorry():
+    print("Sorry, It needs more Time and Knowledge")
+
+def thanks():
+    print("Thank you, Professor.Kim")
+
+
 if __name__ == '__main__':
     class Choice():
         def __init__(self, desc, fn):
@@ -159,7 +166,7 @@ if __name__ == '__main__':
                                 'Delete Words which is mentioned',
                                 'Delete Users who mentioned a word', 'Find Strongly Connected Components',
                                 'Find Shortest Path from a given user'),
-                       (read_file, statistic, mostword, mostuser, userfind, userfriend, delword, deluser, None, None)))
+                       (read_file, statistic, mostword, mostuser, userfind, userfriend, delword, deluser, sorry, thanks)))
 
     while True:
         print(55 * '-')
@@ -175,7 +182,7 @@ if __name__ == '__main__':
         # Convert string to int type #
 
         if choice == '99':
-            print("Good Bye")
+            print("Good Bye World")
             exit()
         elif not choice.isdecimal() or int(choice) > len(choices):  # default
             print("Invalid input. Try again...")
