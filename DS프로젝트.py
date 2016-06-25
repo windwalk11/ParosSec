@@ -51,7 +51,6 @@ def statistic():
     print("Maximum Number of Friends:", maximumf, "=>", m[maximumf])
     print("Minimum Number of Friends:", minimumf, "=>", m[minimumf])
     m.clear()
-
     for i, l in enumerate(open('word.txt')):
         if i % 4 == 0:
             count(l)
@@ -111,7 +110,9 @@ def userfriend():
         if i % 3 == 1 and buffer in d:
             d[buffer].append(l)
             buffer = 0
-    return d
+    k = d.keys()
+    for e in k:
+        print("Above User:", e, "=> Friends:", d.get(e))
 
 def delword():
     print("Deleting Words which is mentioned")
@@ -122,7 +123,7 @@ def delword():
         if i % 4 == 2 and text != l:
             if l not in lst:
                 lst.append(l)
-    return lst
+    print("New Word List:", lst)
 
 def deluser():
     print("Deleting Users who mentioned a word")
@@ -145,7 +146,7 @@ def deluser():
     for k in lst:
         if k in people:
             people.remove(k)
-    return people
+    print("New User List:", people)
 
 def sorry():
     print("Sorry, It needs more Time and Knowledge")
